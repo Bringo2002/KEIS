@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import type { Player, Relationship } from '../../types';
+import styles from './RelationshipGraph.module.css';
 
 interface Props {
   player: Player;
@@ -29,7 +30,7 @@ export function RelationshipGraph({ player, relatedPlayers, relationships }: Pro
   };
 
   return (
-    <div className="space-y-2">
+    <div className={styles.graph}>
       {relatedPlayers.map((rp) => {
         const rel = getRelType(rp.id);
         const color = rel ? typeColors[rel.type] : '#64748b';
@@ -39,25 +40,23 @@ export function RelationshipGraph({ player, relatedPlayers, relationships }: Pro
           <div
             key={rp.id}
             onClick={() => navigate(`/player/${rp.id}`)}
-            className="flex items-center gap-3 p-3 rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] hover:border-[#2a2a3e] hover:bg-[#12121a] cursor-pointer transition-all group"
+            className={styles.item}
           >
             <div
-              className="w-2 h-2 rounded-full shrink-0"
+              className={styles.dot}
               style={{ backgroundColor: color }}
             />
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-[#e2e8f0] group-hover:text-white truncate">
-                {rp.name}
-              </div>
-              <div className="text-xs text-[#64748b] truncate">{label}</div>
+            <div className={styles.details}>
+              <div className={styles.name}>{rp.name}</div>
+              <div className={styles.desc}>{label}</div>
             </div>
             {rel && (
               <span
-                className="text-[10px] font-medium uppercase px-2 py-0.5 rounded-full shrink-0"
+                className={styles.badge}
                 style={{
                   backgroundColor: `${color}20`,
                   color,
-                  border: `1px solid ${color}30`,
+                  borderColor: `${color}30`,
                 }}
               >
                 {rel.type}

@@ -1,0 +1,148 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  padding: 24px;
+  max-width: 1024px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header {
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filterBtn {
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.filterBtn:hover {
+  border-color: var(--color-border-light);
+  color: var(--color-text-primary);
+}
+
+.filterBtnActive {
+  background: rgba(0, 102, 0, 0.2);
+  color: #22c55e;
+  border-color: rgba(0, 102, 0, 0.4);
+}
+
+.timeline {
+  position: relative;
+}
+
+.timelineLine {
+  position: absolute;
+  left: 24px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-border);
+}
+
+@media (min-width: 768px) {
+  .timelineLine { left: 160px; }
+}
+
+.events {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.eventGroup {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .eventGroup { flex-direction: row; gap: 32px; }
+}
+
+.dateCol {
+  margin-bottom: 12px;
+  padding-left: 56px;
+}
+
+@media (min-width: 768px) {
+  .dateCol {
+    width: 160px;
+    margin-bottom: 0;
+    padding-left: 0;
+    text-align: right;
+    padding-right: 32px;
+  }
+}
+
+.month {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.year {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.contentCol {
+  flex: 1;
+  padding-left: 56px;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .contentCol { padding-left: 0; }
+}
+
+.node {
+  position: absolute;
+  left: 19px;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-bg-primary);
+  border: 2px solid var(--color-border-light);
+  z-index: 10;
+}
+
+@media (min-width: 768px) {
+  .node { left: -38px; }
+}
+
+.nodePositive { border-color: var(--color-impact-positive); }
+.nodeNegative { border-color: var(--color-impact-negative); }
+.nodeNeutral { border-color: var(--color-impact-neutral); }
+
+.cardWrap {
+  margin-top: -4px;
+}

@@ -1,0 +1,36 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sm {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.md {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+}
+
+/* Colors */
+.banking { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+.telecommunications { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+.energy { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+.manufacturing { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+.agriculture { background: rgba(132, 204, 22, 0.15); color: #a3e635; }
+.realestate { background: rgba(6, 182, 212, 0.15); color: #22d3ee; }
+.government { background: rgba(100, 116, 139, 0.15); color: #94a3b8; }
+.regulation { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
+.diversified { background: rgba(249, 115, 22, 0.15); color: #fb923c; }
+.insurance { background: rgba(20, 184, 166, 0.15); color: #2dd4bf; }
+.fintech { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+.retail { background: rgba(217, 70, 239, 0.15); color: #e879f9; }
+.media { background: rgba(14, 165, 233, 0.15); color: #38bdf8; }
+.transport { background: rgba(234, 179, 8, 0.15); color: #facc15; }
+.infrastructure { background: rgba(244, 63, 94, 0.15); color: #fb7185; }
+.default { background: rgba(30, 30, 46, 0.5); color: #94a3b8; border: 1px solid var(--color-border); }

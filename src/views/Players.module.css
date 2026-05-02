@@ -1,0 +1,133 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  padding: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.searchWrap {
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 16px 12px 40px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font-size: 14px;
+  transition: border-color 0.15s;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-kenya-green);
+  box-shadow: 0 0 0 1px rgba(0, 102, 0, 0.5);
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filterBtn {
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.filterBtn:hover {
+  border-color: var(--color-border-light);
+  color: var(--color-text-primary);
+}
+
+.filterBtnActive {
+  background: rgba(0, 102, 0, 0.2);
+  color: #22c55e;
+  border-color: rgba(0, 102, 0, 0.4);
+}
+
+.filterBtnClear {
+  opacity: 0.7;
+  transition: opacity 0.15s;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.filterBtnClear:hover {
+  opacity: 1;
+}
+
+.filterBtnClearActive {
+  opacity: 1;
+}
+
+.meta {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1280px) {
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.empty {
+  text-align: center;
+  padding: 64px 0;
+  color: var(--color-text-muted);
+}
+
+.emptyIcon {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.emptyText {
+  font-size: 14px;
+}

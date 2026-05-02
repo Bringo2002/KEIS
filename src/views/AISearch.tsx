@@ -6,6 +6,7 @@ import { TopBar } from '../components/layout/TopBar';
 import { PlayerCard } from '../components/ui/PlayerCard';
 import { EventCard } from '../components/ui/EventCard';
 import type { QueryResult } from '../types';
+import styles from './AISearch.module.css';
 
 const SUGGESTED = [
   'Who are the biggest banks in Kenya by assets?',
@@ -50,33 +51,32 @@ export function AISearch() {
   useEffect(() => {
     const q = searchParams.get('q');
     if (q) handleSearch(q);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const relevantPlayers = result?.relevantPlayerIds.map((id) => getPlayerById(id)).filter(Boolean) ?? [];
   const relevantEvents = result?.relevantEventIds.map((id) => events.find((e) => e.id === id)).filter(Boolean) ?? [];
 
   return (
-    <div>
+    <div className={styles.root}>
       <TopBar title="AI Search" />
-      <div className="p-6 max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <div className="lg:col-span-3 space-y-6">
+      <div className={styles.container}>
+        <div className={styles.layout}>
+          <div className={styles.chatCol}>
             {/* Search Input */}
-            <div className="relative">
+            <div className={styles.inputWrap}>
+              <span className={styles.searchIcon}>🤖</span>
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch(query)}
                 placeholder="Ask anything about Kenya's economy..."
-                className="w-full px-5 py-4 pl-12 rounded-xl border border-[#1e1e2e] bg-[#12121a] text-[#e2e8f0] placeholder-[#64748b] focus:outline-none focus:border-[#006600] focus:ring-1 focus:ring-[#006600]/50 text-base transition-colors"
+                className={styles.input}
               />
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-lg">🤖</span>
               <button
                 onClick={() => handleSearch(query)}
                 disabled={loading || !query.trim()}
-                className="absolute right-3 top-1/2 -translate-y-1/2 px-4 py-2 rounded-lg bg-[#006600] text-white text-sm font-medium hover:bg-[#007700] disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                className={styles.sendBtn}
               >
                 {loading ? '...' : 'Ask'}
               </button>
@@ -84,9 +84,9 @@ export function AISearch() {
 
             {/* Suggested Queries */}
             {!result && !loading && (
-              <div className="flex flex-wrap gap-2">
+              <div className={styles.suggestions}>
                 {SUGGESTED.map((s) => (
-                  <button key={s} onClick={() => handleSearch(s)} className="px-3 py-1.5 rounded-full text-xs border border-[#1e1e2e] bg-[#12121a] text-[#94a3b8] hover:text-white hover:border-[#2a2a3e] transition-colors cursor-pointer">
+                  <button key={s} onClick={() => handleSearch(s)} className={styles.suggestionBtn}>
                     {s}
                   </button>
                 ))}
@@ -95,37 +95,35 @@ export function AISearch() {
 
             {/* Loading */}
             {loading && (
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-8 text-center">
-                <div className="inline-block w-6 h-6 border-2 border-[#006600] border-t-transparent rounded-full animate-spin mb-3" />
-                <p className="text-sm text-[#94a3b8]">Analyzing Kenya's economic data...</p>
+              <div className={styles.loadingState}>
+                <div className={styles.spinner} />
+                <p>Analyzing Kenya's economic data...</p>
               </div>
             )}
 
             {/* Error */}
             {error && (
-              <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-6">
-                <p className="text-sm text-red-400">⚠️ {error}</p>
+              <div className={styles.errorBox}>
+                <p>⚠️ {error}</p>
               </div>
             )}
 
             {/* Result */}
             {result && (
-              <div className="space-y-6 animate-fade-in">
-                <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-bold uppercase px-2 py-0.5 rounded-full bg-[#006600]/20 text-[#22c55e]">
-                      {result.confidence} confidence
-                    </span>
+              <div className={styles.resultWrap}>
+                <div className={styles.answerBox}>
+                  <div className={styles.confidenceBadge}>
+                    {result.confidence} confidence
                   </div>
-                  <div className="text-sm text-[#e2e8f0] leading-relaxed whitespace-pre-wrap">{result.answer}</div>
+                  <div className={styles.answer}>{result.answer}</div>
                 </div>
 
                 {/* Follow-ups */}
                 {result.followUpQuestions.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    <span className="text-xs text-[#64748b] self-center mr-1">Follow up:</span>
+                  <div className={styles.followUps}>
+                    <span>Follow up:</span>
                     {result.followUpQuestions.map((q, i) => (
-                      <button key={i} onClick={() => handleSearch(q)} className="px-3 py-1.5 rounded-full text-xs border border-[#006600]/30 bg-[#006600]/10 text-[#22c55e] hover:bg-[#006600]/20 transition-colors cursor-pointer">
+                      <button key={i} onClick={() => handleSearch(q)} className={styles.followUpBtn}>
                         {q}
                       </button>
                     ))}
@@ -134,9 +132,9 @@ export function AISearch() {
 
                 {/* Relevant Players */}
                 {relevantPlayers.length > 0 && (
-                  <section>
-                    <h3 className="text-sm font-semibold text-[#94a3b8] uppercase tracking-wider mb-3">Relevant Entities</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <section className={styles.relevantSection}>
+                    <h3 className={styles.sectionTitle}>Relevant Entities</h3>
+                    <div className={styles.relevantGrid}>
                       {relevantPlayers.map((p) => p && <PlayerCard key={p.id} player={p} />)}
                     </div>
                   </section>
@@ -144,9 +142,9 @@ export function AISearch() {
 
                 {/* Relevant Events */}
                 {relevantEvents.length > 0 && (
-                  <section>
-                    <h3 className="text-sm font-semibold text-[#94a3b8] uppercase tracking-wider mb-3">Related Events</h3>
-                    <div className="space-y-3">
+                  <section className={styles.relevantSection}>
+                    <h3 className={styles.sectionTitle}>Related Events</h3>
+                    <div className={styles.eventsList}>
                       {relevantEvents.map((e) => e && <EventCard key={e.id} event={e} />)}
                     </div>
                   </section>
@@ -156,16 +154,18 @@ export function AISearch() {
           </div>
 
           {/* History sidebar */}
-          <div>
-            <h3 className="text-sm font-semibold text-[#94a3b8] uppercase tracking-wider mb-3">History</h3>
-            <div className="space-y-2">
-              {queryHistory.length === 0 && <p className="text-xs text-[#64748b] italic">No queries yet.</p>}
-              {queryHistory.slice(0, 10).map((h, i) => (
-                <button key={i} onClick={() => handleSearch(h.query)} className="w-full text-left px-3 py-2.5 rounded-lg border border-[#1e1e2e] bg-[#12121a] hover:bg-[#1a1a28] hover:border-[#2a2a3e] transition-colors cursor-pointer">
-                  <p className="text-xs text-[#e2e8f0] truncate">{h.query}</p>
-                  <p className="text-[10px] text-[#64748b] font-mono mt-0.5">{new Date(h.timestamp).toLocaleDateString()}</p>
-                </button>
-              ))}
+          <div className={styles.sideCol}>
+            <div className={styles.panel}>
+              <h3 className={styles.panelTitle}>History</h3>
+              <div className={styles.historyList}>
+                {queryHistory.length === 0 && <p className={styles.emptyHistory}>No queries yet.</p>}
+                {queryHistory.slice(0, 10).map((h, i) => (
+                  <button key={i} onClick={() => handleSearch(h.query)} className={styles.historyItem}>
+                    <p className={styles.historyQuery}>{h.query}</p>
+                    <p className={styles.historyDate}>{new Date(h.timestamp).toLocaleDateString()}</p>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>

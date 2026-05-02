@@ -1,0 +1,107 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  border-color: var(--color-border-light);
+  background: var(--color-bg-elevated);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.desc {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.date {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.positive {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--color-impact-positive);
+}
+
+.negative {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--color-impact-negative);
+}
+
+.neutral {
+  background: rgba(107, 114, 128, 0.15);
+  color: var(--color-impact-neutral);
+}
+
+.dots {
+  display: flex;
+  gap: 2px;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.players {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border);
+}
+
+.player {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  background: var(--color-bg-elevated);
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.player:hover {
+  color: var(--color-text-primary);
+  background: var(--color-border-light);
+}
+
+.playerMore {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  padding: 2px 4px;
+}

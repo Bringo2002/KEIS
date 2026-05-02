@@ -1,0 +1,136 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  padding: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .statsGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.statCard {
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  padding: 16px;
+  text-align: center;
+}
+
+.statValue {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+}
+
+.statLabel {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+.indicatorsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .indicatorsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .indicatorsGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 1024px) {
+  .mainGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.eventsCol {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .eventsCol { grid-column: span 2 / span 2; }
+}
+
+.eventsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectorsCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectorsList {
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  overflow: hidden;
+}
+
+.sectorItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sectorItem:last-child {
+  border-bottom: none;
+}
+
+.sectorName {
+  font-size: 14px;
+  color: var(--color-text-primary);
+}
+
+.sectorCount {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+  background: var(--color-bg-elevated);
+  padding: 2px 8px;
+  border-radius: 9999px;
+}

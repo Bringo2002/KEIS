@@ -3,6 +3,7 @@ import { TopBar } from '../components/layout/TopBar';
 import { IndicatorSparkline } from '../components/ui/IndicatorSparkline';
 import { EventCard } from '../components/ui/EventCard';
 import type { Sector } from '../types';
+import styles from './Dashboard.module.css';
 
 export function Dashboard() {
   const indicators = useEconomyStore((s) => s.indicators);
@@ -28,44 +29,44 @@ export function Dashboard() {
   const uniqueSectors = new Set(players.map((p) => p.sector)).size;
 
   return (
-    <div>
+    <div className={styles.root}>
       <TopBar title="Dashboard" />
-      <div className="p-6 space-y-8 max-w-7xl mx-auto">
+      <div className={styles.container}>
         {/* Quick Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4 text-center">
-            <div className="text-2xl font-bold font-mono text-[#e2e8f0]">{players.length}</div>
-            <div className="text-xs text-[#64748b] mt-1">Entities Tracked</div>
+        <div className={styles.statsGrid}>
+          <div className={styles.statCard}>
+            <div className={styles.statValue}>{players.length}</div>
+            <div className={styles.statLabel}>Entities Tracked</div>
           </div>
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4 text-center">
-            <div className="text-2xl font-bold font-mono text-[#e2e8f0]">{uniqueSectors}</div>
-            <div className="text-xs text-[#64748b] mt-1">Sectors Covered</div>
+          <div className={styles.statCard}>
+            <div className={styles.statValue}>{uniqueSectors}</div>
+            <div className={styles.statLabel}>Sectors Covered</div>
           </div>
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4 text-center">
-            <div className="text-2xl font-bold font-mono text-[#e2e8f0]">{events.length}</div>
-            <div className="text-xs text-[#64748b] mt-1">Events Recorded</div>
+          <div className={styles.statCard}>
+            <div className={styles.statValue}>{events.length}</div>
+            <div className={styles.statLabel}>Events Recorded</div>
           </div>
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4 text-center">
-            <div className="text-2xl font-bold font-mono text-[#e2e8f0]">{indicators.length}</div>
-            <div className="text-xs text-[#64748b] mt-1">Macro Indicators</div>
+          <div className={styles.statCard}>
+            <div className={styles.statValue}>{indicators.length}</div>
+            <div className={styles.statLabel}>Macro Indicators</div>
           </div>
         </div>
 
         {/* Macro Indicators */}
-        <section>
-          <h2 className="text-sm font-semibold text-[#94a3b8] uppercase tracking-wider mb-4">Key Indicators</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Key Indicators</h2>
+          <div className={styles.indicatorsGrid}>
             {topIndicators.map((ind) => (
               <IndicatorSparkline key={ind.id} indicator={ind} />
             ))}
           </div>
         </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className={styles.mainGrid}>
           {/* Recent Events */}
-          <section className="lg:col-span-2">
-            <h2 className="text-sm font-semibold text-[#94a3b8] uppercase tracking-wider mb-4">Recent Events</h2>
-            <div className="space-y-3">
+          <section className={styles.eventsCol}>
+            <h2 className={styles.sectionTitle}>Recent Events</h2>
+            <div className={styles.eventsList}>
               {recentEvents.map((evt) => (
                 <EventCard key={evt.id} event={evt} />
               ))}
@@ -73,13 +74,13 @@ export function Dashboard() {
           </section>
 
           {/* Sector Breakdown */}
-          <section>
-            <h2 className="text-sm font-semibold text-[#94a3b8] uppercase tracking-wider mb-4">Sectors</h2>
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] divide-y divide-[#1e1e2e]">
+          <section className={styles.sectorsCol}>
+            <h2 className={styles.sectionTitle}>Sectors</h2>
+            <div className={styles.sectorsList}>
               {sectors.map(([sector, count]) => (
-                <div key={sector} className="flex items-center justify-between px-4 py-3">
-                  <span className="text-sm text-[#e2e8f0]">{sector}</span>
-                  <span className="text-xs font-mono text-[#64748b] bg-[#1e1e2e] px-2 py-0.5 rounded-full">{count}</span>
+                <div key={sector} className={styles.sectorItem}>
+                  <span className={styles.sectorName}>{sector}</span>
+                  <span className={styles.sectorCount}>{count}</span>
                 </div>
               ))}
             </div>
