@@ -1,0 +1,18 @@
+.root {
+  min-height: 100vh;
+  background-color: var(--color-bg-primary);
+}
+
+.main {
+  min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+  .main {
+    margin-left: 240px;
+  }
+}
+
+.content {
+  animation: fadeIn 0.3s ease-out forwards;
+}

@@ -1,0 +1,140 @@
+.toggleBtn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 50;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.toggleBtn:hover {
+  background: var(--color-bg-elevated);
+}
+
+@media (min-width: 768px) {
+  .toggleBtn { display: none; }
+}
+
+.aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 40;
+  background: var(--color-bg-surface);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  transform: translateX(-100%);
+  transition: transform 0.3s;
+}
+
+.asideOpen {
+  transform: translateX(0);
+}
+
+@media (min-width: 768px) {
+  .aside {
+    transform: translateX(0);
+  }
+}
+
+.logoWrap {
+  padding: 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.logoInner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #006600, #004400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 6px rgba(0, 102, 0, 0.2);
+}
+
+.logoTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.logoSub {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nav {
+  flex: 1;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.navLink:hover {
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+}
+
+.navLinkActive {
+  background: rgba(0, 102, 0, 0.15);
+  color: #22c55e;
+  border-color: rgba(0, 102, 0, 0.3);
+}
+
+.navIcon {
+  font-size: 16px;
+}
+
+.footer {
+  padding: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.footerText {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
