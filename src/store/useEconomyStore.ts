@@ -22,6 +22,24 @@ interface EconomyStore {
 }
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3002';
+const VALID_IMPACTS = new Set(['low', 'medium', 'high'] as const);
+
+function normalizeEvents(input: unknown): EconomicEvent[] {
+  if (!Array.isArray(input)) return [];
+
+  return input.map((event) => {
+    if (!event || typeof event !== 'object') return event as EconomicEvent;
+    const rawImpact = (event as { impact?: unknown }).impact;
+    const normalizedImpact = typeof rawImpact === 'string' ? rawImpact.toLowerCase() : '';
+
+    return {
+      ...(event as EconomicEvent),
+      impact: VALID_IMPACTS.has(normalizedImpact as 'low' | 'medium' | 'high')
+        ? (normalizedImpact as EconomicEvent['impact'])
+        : 'low',
+    };
+  });
+}
 
 export const useEconomyStore = create<EconomyStore>()(
   persist(
@@ -48,7 +66,7 @@ export const useEconomyStore = create<EconomyStore>()(
 
           set({
             players: playersRes.data || playersRes || [],
-            events: eventsRes.data || eventsRes || [],
+            events: normalizeEvents(eventsRes.data || eventsRes || []),
             indicators: indicatorsRes.data || indicatorsRes || [],
             relationships: relationshipsRes.data || relationshipsRes || [],
             isLoading: false,

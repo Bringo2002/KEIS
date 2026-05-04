@@ -12,6 +12,7 @@ export function EventCard({ event }: { event: EconomicEvent }) {
     medium: '●●',
     high: '●●●',
   };
+  const impactDots = levelDots[event.impact] ?? '';
 
   return (
     <div className={styles.card}>
@@ -20,7 +21,7 @@ export function EventCard({ event }: { event: EconomicEvent }) {
         <span className={`${styles.badge} ${styles[event.impactType]}`}>
           {event.impactType}
           <span className={styles.dots}>
-            {levelDots[event.impact].split('').map((_, i) => (
+            {impactDots.split('').map((_, i) => (
               <span key={i} className={styles.dot} />
             ))}
           </span>
