@@ -24,9 +24,7 @@ export function AISearch() {
   const [result, setResult] = useState<QueryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const players = useEconomyStore((s) => s.players);
   const events = useEconomyStore((s) => s.events);
-  const indicators = useEconomyStore((s) => s.indicators);
   const queryHistory = useEconomyStore((s) => s.queryHistory);
   const addQueryToHistory = useEconomyStore((s) => s.addQueryToHistory);
   const getPlayerById = useEconomyStore((s) => s.getPlayerById);
@@ -38,7 +36,7 @@ export function AISearch() {
     setError(null);
     setResult(null);
     try {
-      const r = await runQuery(q.trim(), players, events, indicators);
+      const r = await runQuery(q.trim());
       setResult(r);
       addQueryToHistory(q.trim(), r);
     } catch (e) {
