@@ -25,6 +25,56 @@ const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3002';
 const VALID_IMPACTS = new Set(['low', 'medium', 'high'] as const);
 const VALID_IMPACT_TYPES = new Set(['positive', 'negative', 'neutral'] as const);
 
+function normalizePlayers(input: unknown): Player[] {
+  if (!Array.isArray(input)) return [];
+
+  return input.map((player) => {
+    if (!player || typeof player !== 'object') {
+      return {
+        id: '',
+        name: 'Unknown',
+        sector: 'Diversified',
+        type: 'Private Company',
+        subtype: '',
+        description: '',
+        relationships: [],
+        keyFacts: [],
+        tags: [],
+      };
+    }
+
+    const raw = player as Partial<Player>;
+    return {
+      id: typeof raw.id === 'string' ? raw.id : '',
+      name: typeof raw.name === 'string' ? raw.name : 'Unknown',
+      sector: (typeof raw.sector === 'string' ? raw.sector : 'Diversified') as Sector,
+      type: (typeof raw.type === 'string' ? raw.type : 'Private Company') as EntityType,
+      subtype: typeof raw.subtype === 'string' ? raw.subtype : '',
+      founded: typeof raw.founded === 'number' ? raw.founded : undefined,
+      hq: typeof raw.hq === 'string' ? raw.hq : undefined,
+      ownership: typeof raw.ownership === 'string' ? raw.ownership : undefined,
+      revenue: typeof raw.revenue === 'string' ? raw.revenue : undefined,
+      employees: typeof raw.employees === 'string' ? raw.employees : undefined,
+      marketCap: typeof raw.marketCap === 'string' ? raw.marketCap : undefined,
+      description: typeof raw.description === 'string' ? raw.description : '',
+      relationships: Array.isArray(raw.relationships)
+        ? raw.relationships.filter((id): id is string => typeof id === 'string')
+        : [],
+      relationshipLabels:
+        raw.relationshipLabels && typeof raw.relationshipLabels === 'object'
+          ? raw.relationshipLabels
+          : undefined,
+      keyFacts: Array.isArray(raw.keyFacts) ? raw.keyFacts.filter((f): f is string => typeof f === 'string') : [],
+      tags: Array.isArray(raw.tags) ? raw.tags.filter((tag): tag is string => typeof tag === 'string') : [],
+      recentEvents: Array.isArray(raw.recentEvents)
+        ? raw.recentEvents.filter((id): id is string => typeof id === 'string')
+        : undefined,
+      riskLevel: raw.riskLevel,
+      lastUpdated: typeof raw.lastUpdated === 'string' ? raw.lastUpdated : undefined,
+    };
+  });
+}
+
 function normalizeEvents(input: unknown): EconomicEvent[] {
   if (!Array.isArray(input)) return [];
 
@@ -91,7 +141,7 @@ export const useEconomyStore = create<EconomyStore>()(
           ]);
 
           set({
-            players: playersRes.data || playersRes || [],
+            players: normalizePlayers(playersRes.data || playersRes || []),
             events: normalizeEvents(eventsRes.data || eventsRes || []),
             indicators: indicatorsRes.data || indicatorsRes || [],
             relationships: relationshipsRes.data || relationshipsRes || [],

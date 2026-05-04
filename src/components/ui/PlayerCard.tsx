@@ -5,6 +5,7 @@ import styles from './PlayerCard.module.css';
 
 export function PlayerCard({ player }: { player: Player }) {
   const navigate = useNavigate();
+  const relationships = Array.isArray(player.relationships) ? player.relationships : [];
 
   return (
     <div
@@ -32,7 +33,7 @@ export function PlayerCard({ player }: { player: Player }) {
       </p>
 
       <div className={styles.footer}>
-        <span className={styles.relations}>{player.relationships.length} connections</span>
+        <span className={styles.relations}>{relationships.length} connections</span>
         {player.revenue && <span className={styles.revenue}>{player.revenue}</span>}
       </div>
     </div>
