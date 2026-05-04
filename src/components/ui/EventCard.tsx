@@ -13,6 +13,7 @@ export function EventCard({ event }: { event: EconomicEvent }) {
     high: '●●●',
   };
   const impactDots = levelDots[event.impact] ?? '';
+  const playerIds = Array.isArray(event.playerIds) ? event.playerIds : [];
 
   return (
     <div className={styles.card}>
@@ -31,9 +32,9 @@ export function EventCard({ event }: { event: EconomicEvent }) {
       <h3 className={styles.title}>{event.title}</h3>
       <p className={styles.desc}>{event.description}</p>
 
-      {event.playerIds.length > 0 && (
+      {playerIds.length > 0 && (
         <div className={styles.players}>
-          {event.playerIds.slice(0, 5).map((pid) => {
+          {playerIds.slice(0, 5).map((pid) => {
             const p = getPlayerById(pid);
             return p ? (
               <button
@@ -45,8 +46,8 @@ export function EventCard({ event }: { event: EconomicEvent }) {
               </button>
             ) : null;
           })}
-          {event.playerIds.length > 5 && (
-            <span className={styles.playerMore}>+{event.playerIds.length - 5} more</span>
+          {playerIds.length > 5 && (
+            <span className={styles.playerMore}>+{playerIds.length - 5} more</span>
           )}
         </div>
       )}

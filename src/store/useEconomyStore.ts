@@ -23,20 +23,46 @@ interface EconomyStore {
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3002';
 const VALID_IMPACTS = new Set(['low', 'medium', 'high'] as const);
+const VALID_IMPACT_TYPES = new Set(['positive', 'negative', 'neutral'] as const);
 
 function normalizeEvents(input: unknown): EconomicEvent[] {
   if (!Array.isArray(input)) return [];
 
   return input.map((event) => {
-    if (!event || typeof event !== 'object') return event as EconomicEvent;
-    const rawImpact = (event as { impact?: unknown }).impact;
+    if (!event || typeof event !== 'object') {
+      return {
+        id: '',
+        date: '',
+        title: '',
+        description: '',
+        impact: 'low',
+        impactType: 'neutral',
+        sector: [],
+        playerIds: [],
+        tags: [],
+      };
+    }
+    const raw = event as Partial<EconomicEvent> & { impact?: unknown; impactType?: unknown };
+    const rawImpact = raw.impact;
     const normalizedImpact = typeof rawImpact === 'string' ? rawImpact.toLowerCase() : '';
+    const rawImpactType = raw.impactType;
+    const normalizedImpactType = typeof rawImpactType === 'string' ? rawImpactType.toLowerCase() : '';
 
     return {
-      ...(event as EconomicEvent),
+      id: typeof raw.id === 'string' ? raw.id : '',
+      date: typeof raw.date === 'string' ? raw.date : '',
+      title: typeof raw.title === 'string' ? raw.title : '',
+      description: typeof raw.description === 'string' ? raw.description : '',
       impact: VALID_IMPACTS.has(normalizedImpact as 'low' | 'medium' | 'high')
         ? (normalizedImpact as EconomicEvent['impact'])
         : 'low',
+      impactType: VALID_IMPACT_TYPES.has(normalizedImpactType as 'positive' | 'negative' | 'neutral')
+        ? (normalizedImpactType as EconomicEvent['impactType'])
+        : 'neutral',
+      sector: Array.isArray(raw.sector) ? raw.sector : [],
+      playerIds: Array.isArray(raw.playerIds) ? raw.playerIds.filter((id): id is string => typeof id === 'string') : [],
+      tags: Array.isArray(raw.tags) ? raw.tags.filter((tag): tag is string => typeof tag === 'string') : [],
+      source: typeof raw.source === 'string' ? raw.source : undefined,
     };
   });
 }
